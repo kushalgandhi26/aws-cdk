@@ -43,10 +43,9 @@ export class ServerlessStack extends cdk.Stack {
       this,
       "RegisterUserFunction",
       {
-        architecture: lambda.Architecture.X86_64,
         runtime: lambda.Runtime.NODEJS_20_X,
         handler: "registerUser.handler",
-        code: lambda.Code.fromAsset("lambda"),
+        code: lambda.AssetCode.fromAsset("./lambda"),
         environment: {
           TABLE_NAME: userTable.tableName,
         },
@@ -56,23 +55,15 @@ export class ServerlessStack extends cdk.Stack {
     const getUserLambda = new lambda.Function(this, "GetUserFunction", {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: "getUser.handler",
-      code: lambda.Code.fromAsset("lambda"),
+      code: lambda.AssetCode.fromAsset("./lambda"),
       environment: {
         TABLE_NAME: userTable.tableName,
       },
     });
 
     // Grant permissions to Lambda functions to access DynamoDB
-    userTable.grantReadWriteData(registerUserLambda);
-    userTable.grantReadWriteData(getUserLambda);
-
-    // Define IAM role for Lambda functions
-    const lambdaRole = new iam.Role(this, "LambdaRole", {
-      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
-    });
-
-    // Attach policies to IAM role
-    userTable.grantReadWriteData(lambdaRole);
+    userTable.grantFullAccess(registerUserLambda);
+    userTable.grantFullAccess(getUserLambda);
 
     // Define API resources and methods
     const users = api.root.addResource("users");

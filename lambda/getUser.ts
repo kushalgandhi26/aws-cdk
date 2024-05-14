@@ -1,34 +1,32 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import * as AWS from "aws-sdk";
+import { DynamoDB } from "@aws-sdk/client-dynamodb";
+import { GetCommand } from "@aws-sdk/lib-dynamodb";
 
-// Create a DynamoDB DocumentClient instance
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+const dynamodb = new DynamoDB({});
 
 export async function handler(
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> {
   try {
     // Extract GUID from the query parameters
-    const guid = event.pathParameters?.id;
+    const id = event.pathParameters?.id;
 
     // Check if GUID is present in the query parameters
-    if (!guid) {
+    if (!id) {
       return {
         statusCode: 400,
         body: JSON.stringify({ message: "GUID parameter is missing" }),
       };
     }
 
-    // Define parameters for DynamoDB query
-    const params = {
-      TableName: "UserTable",
-      Key: {
-        userId: guid, // Assuming userId is the primary key in your DynamoDB table
-      },
-    };
-
-    // Retrieve user information from DynamoDB
-    const result = await dynamodb.get(params).promise();
+    const result = await dynamodb.send(
+      new GetCommand({
+        TableName: "ServerlessAppStack-UserTableBD4BF69E-L24V71FR60NO",
+        Key: {
+          userId: id,
+        },
+      })
+    );
 
     // Check if user exists in DynamoDB
     if (!result.Item) {

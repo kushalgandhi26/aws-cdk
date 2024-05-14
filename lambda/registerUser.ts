@@ -1,12 +1,13 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { randomUUID } from "crypto";
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 // Create a DynamoDB DocumentClient instance
 const dynamodb = new DynamoDB({});
-
-export async function handler(event: APIGatewayProxyEvent) {
+export const handler = async (
+  event: APIGatewayEvent
+): Promise<APIGatewayProxyResult> => {
   try {
     const uuid = randomUUID();
     // Parse the request body to get user data
@@ -31,7 +32,7 @@ export async function handler(event: APIGatewayProxyEvent) {
     // Put the item into DynamoDB table
     await dynamodb.send(
       new PutCommand({
-        TableName: "UserTable",
+        TableName: "ServerlessAppStack-UserTableBD4BF69E-L24V71FR60NO",
         Item: userItem,
       })
     );
@@ -50,4 +51,4 @@ export async function handler(event: APIGatewayProxyEvent) {
       body: JSON.stringify({ message: error }),
     };
   }
-}
+};
