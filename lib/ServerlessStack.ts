@@ -10,6 +10,7 @@ export class ServerlessStack extends cdk.Stack {
 
     // Define DynamoDB table
     const userTable = new dynamodb.Table(this, "UserTable", {
+      tableName: "UserTable",
       partitionKey: { name: "userId", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });

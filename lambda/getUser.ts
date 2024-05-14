@@ -21,7 +21,7 @@ export async function handler(
 
     const result = await dynamodb.send(
       new GetCommand({
-        TableName: "ServerlessAppStack-UserTableBD4BF69E-L24V71FR60NO",
+        TableName: "UserTable",
         Key: {
           userId: id,
         },

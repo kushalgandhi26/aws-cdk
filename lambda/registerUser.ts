@@ -14,7 +14,7 @@ export const handler = async (
     const requestBody = JSON.parse(event.body || "");
     const { name, email } = requestBody;
 
-    // Check if userId, name, and email are present in the request
+    // Check if name and email are present in the request
     if (!name || !email) {
       return {
         statusCode: 400,
@@ -32,7 +32,7 @@ export const handler = async (
     // Put the item into DynamoDB table
     await dynamodb.send(
       new PutCommand({
-        TableName: "ServerlessAppStack-UserTableBD4BF69E-L24V71FR60NO",
+        TableName: "UserTable",
         Item: userItem,
       })
     );
