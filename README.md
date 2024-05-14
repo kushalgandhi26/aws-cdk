@@ -6,7 +6,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Setup aws-cli
 1. In your browser, download the macOS pkg file: https://awscli.amazonaws.com/AWSCLIV2.pkg
-2. Run the following command * `aws configure`
+2. Run the following command `aws configure`
 3. For access key id paste the value: `AKIAZQ3DQAD4HW7GJGVI`
 4. For secret access key paste the value: `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`
 5. For region paste the value: `ca-central-1`
