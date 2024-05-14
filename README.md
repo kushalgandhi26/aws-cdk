@@ -1,14 +1,24 @@
 # Welcome to your CDK TypeScript project
 
-This is a blank project for CDK development with TypeScript.
+This file contains setup for aws-cli as well as the deployment of the cdk.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-## Useful commands
+## Setup aws-cli
+1. In your browser, download the macOS pkg file: https://awscli.amazonaws.com/AWSCLIV2.pkg
+2. Run the following command * `aws configure`
+3. For access key id paste the value: `AKIAZQ3DQAD4HW7GJGVI`
+4. For secret access key paste the value: `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`
+5. For region paste the value: `ca-central-1`
+6. Then press enter for default output format.
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+## Deploy the cdk
+1. Clone the repo
+2. Run `npm install`
+3. Run `npm run build`
+4. Run `npm install -g aws-cdk`
+5. Run `cdk bootstrap`
+6. Run `cdk deploy ServerlessAppStack`
+
+## Video tutorials
+1. aws-cli setup https://www.youtube.com/watch?v=S7K5vwVobVc
